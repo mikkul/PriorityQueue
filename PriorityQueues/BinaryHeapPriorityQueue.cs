@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PriorityQueues
 {
-	public class PriorityQueue<T> : IPriorityQueue<T> where T : IPriorityElement
+	public class BinaryHeapPriorityQueue<T> : IPriorityQueue<T> where T : IPriorityElement
 	{
 		#region Private fields
 		private List<T> _heap;
@@ -18,27 +18,27 @@ namespace PriorityQueues
 
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of <see cref="PriorityQueue{T}"/> class that is empty and has the default initial capacity
+		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that is empty and has the default initial capacity
 		/// </summary>
-		public PriorityQueue()
+		public BinaryHeapPriorityQueue()
 		{
 			_heap = new List<T>();
 		}
 
 		/// <summary>
-		/// Initializes a new instance of <see cref="PriorityQueue{T}"/> class that is empty and has the specified initial capacity
+		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that is empty and has the specified initial capacity
 		/// </summary>
-		/// <param name="capacity">The number of elements the <see cref="PriorityQueue{T}"/> can initially store</param>
-		public PriorityQueue(int capacity)
+		/// <param name="capacity">The number of elements the <see cref="BinaryHeapPriorityQueue{T}"/> can initially store</param>
+		public BinaryHeapPriorityQueue(int capacity)
 		{
 			_heap = new List<T>(capacity);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of <see cref="PriorityQueue{T}"/> class that contains elements copied from the specified collection, sorted by their priority value
+		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that contains elements copied from the specified collection, sorted by their priority value
 		/// </summary>
-		/// <param name="collection">The collection whose elements are copied to the <see cref="PriorityQueue{T}"/></param>
-		public PriorityQueue(IEnumerable<T> collection)
+		/// <param name="collection">The collection whose elements are copied to the <see cref="BinaryHeapPriorityQueue{T}"/></param>
+		public BinaryHeapPriorityQueue(IEnumerable<T> collection)
 		{
 			_heap = new List<T>(collection.Count());
 
