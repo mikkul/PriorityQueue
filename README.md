@@ -8,6 +8,7 @@ Priority queue implementations in C#
 * [Example usage](#example-usage)
 * [Implementation comparison](#implementation-comparison)
 * [Time complexity](#time-complexity)
+* [TODO](#todo)
 * [Sources](#sources)
 
 ## Features
@@ -62,6 +63,11 @@ There are two deafult implementations: `BinaryHeapPriorityQueue` and `MappedBina
 |Remove|O(n)|O(1)|
 |Contains|O(n)|O(1)|
 |Clear|O(n)|O(n)|
+
+## TODO
+
+* Add a fibonnaci heap based implementation
+* Add tests
 
 ## Sources
 Inspired by [WilliamFiset](https://www.youtube.com/channel/UCD8yeTczadqdARzQUp29PJw)'s [playlist](https://www.youtube.com/watch?v=wptevk0bshY&list=PLDV1Zeh2NRsCLFSHm1nYb9daYf60lCcag&index=1) explaining how priority queues work, along with sample implementation code
