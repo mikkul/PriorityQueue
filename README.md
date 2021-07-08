@@ -30,7 +30,7 @@ class Element
 Then we can create a new priority queue using one of the two default implementations, and pass in a comparer
 ```cs
 // Create a new instance of BinaryHeapPriorityQueue
-IPriorityQueue<Element> myPriorityQueue = new BinaryHeapPriorityQueue<Element>((a, b) => a.Priority.CompareTo(b.Priority)); // this will produce a min-heap, use b.Priority.CompareTo(b.Priority) for a max-heap
+IPriorityQueue<Element> myPriorityQueue = new BinaryHeapPriorityQueue<Element>((a, b) => a.Priority.CompareTo(b.Priority)); // this will produce a min-heap, use b.Priority.CompareTo(a.Priority) for a max-heap
 // Insert some elements
 myPriorityQueue.Enqueue(new Element { Priority = 5, Name = "A" });
 myPriorityQueue.Enqueue(new Element { Priority = 7, Name = "B" });
