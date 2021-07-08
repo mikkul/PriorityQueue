@@ -18,21 +18,19 @@ Priority queue implementations in C#
 
 ## Example usage
 
-First define a class that implements `IPriorityElemennt` interface, which will be used in our queue.
+First we'll define a sample class that which will be used in our queue.
 ```cs
-class Element : IPriorityElement
+class Element
 {
     public string Name { get; set; }
-    
-    // required property
     public float Priority { get; set; }
 }
 ```
 
-Then we can create a new priority queue using one of the two default implementations
+Then we can create a new priority queue using one of the two default implementations, and pass in a comparer
 ```cs
 // Create a new instance of BinaryHeapPriorityQueue
-IPriorityQueue<Element> myPriorityQueue = new BinaryHeapPriorityQueue<Element>();
+IPriorityQueue<Element> myPriorityQueue = new BinaryHeapPriorityQueue<Element>((a, b) => a.Priority.CompareTo(b.Priority)); // this will produce a min-heap, use b.Priority.CompareTo(b.Priority) for a max-heap
 // Insert some elements
 myPriorityQueue.Enqueue(new Element { Priority = 5, Name = "A" });
 myPriorityQueue.Enqueue(new Element { Priority = 7, Name = "B" });
