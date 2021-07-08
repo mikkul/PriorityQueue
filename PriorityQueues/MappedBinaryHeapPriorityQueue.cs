@@ -1,53 +1,30 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PriorityQueues
 {
-	public class MappedBinaryHeapPriorityQueue<T> : IPriorityQueue<T> where T : IPriorityElement
+	public class MappedBinaryHeapPriorityQueue<T> : BinaryHeapPriorityQueue<T>
 	{
 		#region Private fields
-		private List<T> _heap;
-
 		private Dictionary<T, List<int>> _map;
 		#endregion
 
-		#region Public properties
-		/// <inheritdoc/>
-		public int Count => _heap.Count;
-		#endregion
-
 		#region Constructors
-		/// <summary>
-		/// Initializes a new instance of <see cref="MappedBinaryHeapPriorityQueue{T}"/> class that is empty and has the default initial capacity
-		/// </summary>
-		public MappedBinaryHeapPriorityQueue()
+		/// <inheritdoc/>
+		public MappedBinaryHeapPriorityQueue(Comparison<T> comparer) : base(comparer)
 		{
-			_heap = new List<T>();
-
 			_map = new Dictionary<T, List<int>>();
 		}
 
-		/// <summary>
-		/// Initializes a new instance of <see cref="MappedBinaryHeapPriorityQueue{T}"/> class that is empty and has the specified initial capacity
-		/// </summary>
-		/// <param name="capacity">The number of elements the <see cref="MappedBinaryHeapPriorityQueue{T}"/> can initially store</param>
-		public MappedBinaryHeapPriorityQueue(int capacity)
+		/// <inheritdoc/>
+		public MappedBinaryHeapPriorityQueue(int capacity, Comparison<T> comparer) : base(capacity, comparer)
 		{
-			_heap = new List<T>(capacity);
-
 			_map = new Dictionary<T, List<int>>(capacity);
 		}
 
-		/// <summary>
-		/// Initializes a new instance of <see cref="MappedBinaryHeapPriorityQueue{T}"/> class that contains elements copied from the specified collection, sorted by their priority value
-		/// </summary>
-		/// <param name="collection">The collection whose elements are copied to the <see cref="MappedBinaryHeapPriorityQueue{T}"/></param>
-		public MappedBinaryHeapPriorityQueue(IEnumerable<T> collection)
+		/// <inheritdoc/>
+		public MappedBinaryHeapPriorityQueue(IEnumerable<T> collection, Comparison<T> comparer) : base(comparer)
 		{
-			_heap = new List<T>(collection.Count());
-
 			_map = new Dictionary<T, List<int>>();
 
 			int i = 0;
@@ -68,15 +45,15 @@ namespace PriorityQueues
 
 		#region Public methods
 		/// <inheritdoc/>
-		public void Clear()
+		public override void Clear()
 		{
-			_heap.Clear();
+			base.Clear();
 
 			_map.Clear();
 		}
 
 		/// <inheritdoc/>
-		public bool Contains(T element)
+		public override bool Contains(T element)
 		{
 			if (element == null)
 			{
@@ -88,40 +65,15 @@ namespace PriorityQueues
 		}
 
 		/// <inheritdoc/>
-		public T Dequeue()
+		public override void Enqueue(T element)
 		{
-			return IsEmpty() ? throw new InvalidOperationException("Queue is empty") : RemoveAt(0);
-		}
-
-		/// <inheritdoc/>
-		public void Enqueue(T element)
-		{
-			if (element == null)
-			{
-				throw new ArgumentNullException("element");
-			}
-
-			_heap.Add(element);
+			base.Enqueue(element);
 
 			MapAdd(element, _heap.Count - 1);
-
-			Swim(_heap.Count - 1);
 		}
 
 		/// <inheritdoc/>
-		public bool IsEmpty()
-		{
-			return Count == 0;
-		}
-
-		/// <inheritdoc/>
-		public T Peek()
-		{
-			return IsEmpty() ? throw new InvalidOperationException("Queue is empty") : _heap[0];
-		}
-
-		/// <inheritdoc/>
-		public bool Remove(T element)
+		public override bool Remove(T element)
 		{
 			if (element == null)
 			{
@@ -138,68 +90,7 @@ namespace PriorityQueues
 		#endregion
 
 		#region Private methods
-		private bool IsHeapInvariantMaintained(int index)
-		{
-			if (index >= Count)
-			{
-				return true;
-			}
-
-			int leftIndex = 2 * index + 1;
-			int rightIndex = 2 * index + 2;
-
-			if (leftIndex < Count && !Less(index, leftIndex))
-			{
-				return false;
-			}
-			if (rightIndex < Count && !Less(index, rightIndex))
-			{
-				return false;
-			}
-
-			return IsHeapInvariantMaintained(leftIndex) && IsHeapInvariantMaintained(rightIndex);
-		}
-		private bool Less(int i, int j)
-		{
-			return _heap[i].Priority <= _heap[j].Priority;
-		}
-
-		private void Swim(int index)
-		{
-			int parentIndex = (index - 1) / 2;
-
-			while (index > 0 && Less(index, parentIndex))
-			{
-				Swap(parentIndex, index);
-				index = parentIndex;
-				parentIndex = (index - 1) / 2;
-			}
-		}
-
-		private void Sink(int index)
-		{
-			while (true)
-			{
-				int leftChildIndex = 2 * index + 1;
-				int rightChildIndex = 2 * index + 2;
-				int smallerNodeIndex = leftChildIndex;
-				if (rightChildIndex < Count && Less(rightChildIndex, leftChildIndex))
-				{
-					smallerNodeIndex = rightChildIndex;
-				}
-
-				// stop if we're outside bounds or we cannot sink anymore
-				if (leftChildIndex >= Count || Less(index, smallerNodeIndex))
-				{
-					break;
-				}
-
-				Swap(smallerNodeIndex, index);
-				index = smallerNodeIndex;
-			}
-		}
-
-		private void Swap(int i, int j)
+		protected override void Swap(int i, int j)
 		{
 			T i_elem = _heap[i];
 			T j_elem = _heap[j];
@@ -210,7 +101,7 @@ namespace PriorityQueues
 			MapSwap(i_elem, j_elem, i, j);
 		}
 
-		private T RemoveAt(int index)
+		protected override T RemoveAt(int index)
 		{
 			if (index < 0 || index > Count - 1)
 			{
@@ -279,18 +170,6 @@ namespace PriorityQueues
 			_map[value2].Remove(index2);
 			_map[value1].Add(index2);
 			_map[value2].Add(index1);
-		}
-		#endregion
-
-		#region IEnumerable interface implementation
-		public IEnumerator<T> GetEnumerator()
-		{
-			return ((IEnumerable<T>)_heap).GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return ((IEnumerable)_heap).GetEnumerator();
 		}
 		#endregion
 	}

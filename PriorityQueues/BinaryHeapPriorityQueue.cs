@@ -5,10 +5,11 @@ using System.Linq;
 
 namespace PriorityQueues
 {
-	public class BinaryHeapPriorityQueue<T> : IPriorityQueue<T> where T : IPriorityElement
+	public class BinaryHeapPriorityQueue<T> : IPriorityQueue<T>
 	{
 		#region Private fields
-		private List<T> _heap;
+		protected List<T> _heap;
+		protected readonly Comparison<T> _comparer;
 		#endregion
 
 		#region Public properties
@@ -20,27 +21,30 @@ namespace PriorityQueues
 		/// <summary>
 		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that is empty and has the default initial capacity
 		/// </summary>
-		public BinaryHeapPriorityQueue()
+		public BinaryHeapPriorityQueue(Comparison<T> comparer)
 		{
 			_heap = new List<T>();
+			_comparer = comparer;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that is empty and has the specified initial capacity
 		/// </summary>
 		/// <param name="capacity">The number of elements the <see cref="BinaryHeapPriorityQueue{T}"/> can initially store</param>
-		public BinaryHeapPriorityQueue(int capacity)
+		public BinaryHeapPriorityQueue(int capacity, Comparison<T> comparer)
 		{
 			_heap = new List<T>(capacity);
+			_comparer = comparer;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of <see cref="BinaryHeapPriorityQueue{T}"/> class that contains elements copied from the specified collection, sorted by their priority value
 		/// </summary>
 		/// <param name="collection">The collection whose elements are copied to the <see cref="BinaryHeapPriorityQueue{T}"/></param>
-		public BinaryHeapPriorityQueue(IEnumerable<T> collection)
+		public BinaryHeapPriorityQueue(IEnumerable<T> collection, Comparison<T> comparer)
 		{
 			_heap = new List<T>(collection.Count());
+			_comparer = comparer;
 
 			int i = 0;
 			foreach (var elem in collection)
@@ -58,13 +62,13 @@ namespace PriorityQueues
 
 		#region Public methods
 		/// <inheritdoc/>
-		public void Clear()
+		public virtual void Clear()
 		{
 			_heap.Clear();
 		}
 
 		/// <inheritdoc/>
-		public bool Contains(T element)
+		public virtual bool Contains(T element)
 		{
 			if (element == null)
 			{
@@ -83,13 +87,13 @@ namespace PriorityQueues
 		}
 
 		/// <inheritdoc/>
-		public T Dequeue()
+		public virtual T Dequeue()
 		{
 			return IsEmpty() ? throw new InvalidOperationException("Queue is empty") : RemoveAt(0);
 		}
 
 		/// <inheritdoc/>
-		public void Enqueue(T element)
+		public virtual void Enqueue(T element)
 		{
 			if (element == null)
 			{
@@ -102,19 +106,19 @@ namespace PriorityQueues
 		}
 
 		/// <inheritdoc/>
-		public bool IsEmpty()
+		public virtual bool IsEmpty()
 		{
 			return Count == 0;
 		}
 
 		/// <inheritdoc/>
-		public T Peek()
+		public virtual T Peek()
 		{
 			return IsEmpty() ? throw new InvalidOperationException("Queue is empty") : _heap[0];
 		}
 
 		/// <inheritdoc/>
-		public bool Remove(T element)
+		public virtual bool Remove(T element)
 		{
 			if (element == null)
 			{
@@ -134,7 +138,7 @@ namespace PriorityQueues
 		#endregion
 
 		#region Private methods
-		private bool IsHeapInvariantMaintained(int index)
+		protected bool IsHeapInvariantMaintained(int index)
 		{
 			if (index >= Count)
 			{
@@ -153,12 +157,13 @@ namespace PriorityQueues
 
 			return IsHeapInvariantMaintained(leftIndex) && IsHeapInvariantMaintained(rightIndex);
 		}
-		private bool Less(int i, int j)
+
+		protected bool Less(int i, int j)
 		{
-			return _heap[i].Priority <= _heap[j].Priority;
+			return _comparer(_heap[i], _heap[j]) <= 0;
 		}
 
-		private void Swim(int index)
+		protected void Swim(int index)
 		{
 			int parentIndex = (index - 1) / 2;
 
@@ -170,7 +175,7 @@ namespace PriorityQueues
 			}
 		}
 
-		private void Sink(int index)
+		protected void Sink(int index)
 		{
 			while (true)
 			{
@@ -193,7 +198,7 @@ namespace PriorityQueues
 			}
 		}
 
-		private void Swap(int i, int j)
+		protected virtual void Swap(int i, int j)
 		{
 			T i_elem = _heap[i];
 			T j_elem = _heap[j];
@@ -202,7 +207,7 @@ namespace PriorityQueues
 			_heap[j] = i_elem;
 		}
 
-		private T RemoveAt(int index)
+		protected virtual T RemoveAt(int index)
 		{
 			if (index < 0 || index > Count - 1)
 			{

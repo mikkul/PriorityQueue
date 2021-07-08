@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PriorityQueues
 {
-	public interface IPriorityQueue<T> : IEnumerable<T> where T : IPriorityElement
+	public interface IPriorityQueue<T> : IEnumerable<T>
 	{
 		/// <summary>
 		/// Gets the number of elements contained in the queue

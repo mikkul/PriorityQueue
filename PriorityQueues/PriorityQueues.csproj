@@ -6,6 +6,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <ProjectGuid>{68BC24ED-9C80-4BE1-8FBC-21E42AF7E1BD}</ProjectGuid>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
