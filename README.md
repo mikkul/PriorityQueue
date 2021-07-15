@@ -5,6 +5,7 @@ Priority queue implementations in C#
 ## Table of contents
 
 * [Features](#features)
+* [Instalation](#instalation)
 * [Example usage](#example-usage)
 * [Implementation comparison](#implementation-comparison)
 * [Time complexity](#time-complexity)
@@ -15,6 +16,10 @@ Priority queue implementations in C#
 
 * Two default implementations of the priority queue data structure
 * Easy way to create your own implementation by implementing the `IPriorityQueue` interface
+
+## Instalation
+
+Use the [Nuget package](https://www.nuget.org/packages/PriorityQueues/) or download the source code
 
 ## Example usage
 
