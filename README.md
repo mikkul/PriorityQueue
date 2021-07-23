@@ -63,7 +63,7 @@ There are two deafult implementations: `BinaryHeapPriorityQueue` and `MappedBina
 |Enqueue|O(log n)|O(log n)|
 |Dequeue|O(log n)|O(log n)|
 |IsEmpty|O(1)|O(1)|
-|Remove|O(n)|O(1)|
+|Remove|O(log n)|O(log n)|
 |Contains|O(n)|O(1)|
 |Clear|O(n)|O(n)|
 
