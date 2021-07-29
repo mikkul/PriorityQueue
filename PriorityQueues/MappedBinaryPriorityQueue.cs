@@ -128,15 +128,16 @@ namespace PriorityQueues
 				throw new ArgumentOutOfRangeException("index", index, string.Empty);
 			}
 
+			int indexOfLastElement = Count - 1;
 			T removedElem = _heap[index];
 
-			Swap(index, Count - 1);
+			Swap(index, indexOfLastElement);
 
-			_heap.RemoveAt(Count - 1);
+			_heap.RemoveAt(indexOfLastElement);
 
 			MapRemove(removedElem);
 
-			if (IsEmpty())
+			if (index == indexOfLastElement)
 			{
 				return removedElem;
 			}

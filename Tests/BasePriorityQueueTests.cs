@@ -135,5 +135,11 @@ namespace PriorityQueues.Tests
 
 		[TestMethod()]
 		public abstract void Enqueue_elements_and_peek();
+
+		[TestMethod()]
+		public abstract void Enqueue_elements_and_dequeue_returns_items_in_priority_order();
+
+		[TestMethod()]
+		public abstract void Complex_test_with_multiple_operations();
 	}
 }
