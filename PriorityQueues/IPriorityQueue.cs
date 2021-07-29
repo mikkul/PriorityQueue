@@ -34,7 +34,7 @@ namespace PriorityQueues
 		T Dequeue();
 
 		/// <summary>
-		/// Inserts an element to the queue according to its priority value
+		/// Inserts an element to the queue
 		/// </summary>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <param name="element">The element to be added to the queue</param>

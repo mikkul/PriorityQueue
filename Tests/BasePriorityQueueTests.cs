@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PriorityQueues.Tests
 {
@@ -131,6 +133,24 @@ namespace PriorityQueues.Tests
 			priorityQueue.Remove(pear);
 
 			Assert.IsFalse(priorityQueue.Contains(pear));
+		}
+
+		[TestMethod()]
+		public void Enumerable_test()
+		{
+			var apple = new SampleElement("apple", 1f);
+			var pear = new SampleElement("pear", 5f);
+			var banana = new SampleElement("banana", 3f);
+			IPriorityQueue<SampleElement> priorityQueue = CreatePriorityQueue();
+			priorityQueue.Enqueue(apple);
+			priorityQueue.Enqueue(pear);
+			priorityQueue.Enqueue(banana);
+
+			IList<SampleElement> list = priorityQueue.ToList();
+			Assert.AreEqual(list.Count, priorityQueue.Count);
+			Assert.IsTrue(list.Contains(apple));
+			Assert.IsTrue(list.Contains(pear));
+			Assert.IsTrue(list.Contains(banana));
 		}
 
 		[TestMethod()]

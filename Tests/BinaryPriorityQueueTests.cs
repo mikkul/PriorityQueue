@@ -71,7 +71,9 @@ namespace PriorityQueues.Tests
 			priorityQueue.Enqueue(pear);
 			priorityQueue.Enqueue(banana);
 
-			Assert.IsTrue(priorityQueue.Peek() == pear);
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
 		}
 
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
@@ -149,9 +151,9 @@ namespace PriorityQueues.Tests
 			priorityQueue.Enqueue(pear);
 			priorityQueue.Enqueue(banana);
 
-			Assert.IsTrue(priorityQueue.Dequeue() == pear);
-			Assert.IsTrue(priorityQueue.Dequeue() == banana);
-			Assert.IsTrue(priorityQueue.Dequeue() == apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
 		}
 
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
