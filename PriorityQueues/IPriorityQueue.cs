@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace PriorityQueues
 {
+	/// <summary>
+	/// Represents a generic priority queue
+	/// </summary>
 	public interface IPriorityQueue<T> : IEnumerable<T>
 	{
 		/// <summary>
