@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PriorityQueues</name>
+    </assembly>
+    <members>
+        <member name="T:PriorityQueues.BinaryPriorityQueue`1">
+            <summary>
+            Priority queue implementation based on a binary heap
+            </summary>
+        </member>
+        <member name="P:PriorityQueues.BinaryPriorityQueue`1.Count">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.#ctor(System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.BinaryPriorityQueue`1"/> class that is empty and has the default initial capacity
+            </summary>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.#ctor(System.Int32,System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.BinaryPriorityQueue`1"/> class that is empty and has the specified initial capacity
+            </summary>
+            <param name="capacity">The number of elements the <see cref="T:PriorityQueues.BinaryPriorityQueue`1"/> can initially store</param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.BinaryPriorityQueue`1"/> class that contains elements copied from the specified collection, sorted by their priority value
+            </summary>
+            <param name="collection">The collection whose elements are copied to the <see cref="T:PriorityQueues.BinaryPriorityQueue`1"/></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Dequeue">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Enqueue(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.IsEmpty">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Peek">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.BinaryPriorityQueue`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:PriorityQueues.PriorityQueueType">
+            <summary>
+            Used for comparing priorities
+            </summary>
+        </member>
+        <member name="F:PriorityQueues.PriorityQueueType.Minimum">
+            <summary>
+            Specifies a min heap priority queue
+            </summary>
+        </member>
+        <member name="F:PriorityQueues.PriorityQueueType.Maximum">
+            <summary>
+            Specifies a max heap priority queue
+            </summary>
+        </member>
+        <member name="T:PriorityQueues.FibonacciPriorityQueue`1">
+            <summary>
+            A Fibonacci heap implementation of the priority queue
+            </summary>
+        </member>
+        <member name="T:PriorityQueues.FibonacciPriorityQueue`1.QueueElement">
+            <summary>
+            A wrapper around user specified type
+            </summary>
+        </member>
+        <member name="P:PriorityQueues.FibonacciPriorityQueue`1.QueueElement.Value">
+            <summary>
+            The actual value of the user-specified type
+            </summary>
+        </member>
+        <member name="P:PriorityQueues.FibonacciPriorityQueue`1.QueueElement.Priority">
+            <summary>
+            The priority value
+            </summary>
+        </member>
+        <member name="T:PriorityQueues.FibonacciPriorityQueue`1.Node">
+            <summary>
+            Represents a single node in the fibonacci heap
+            </summary>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.#ctor(PriorityQueues.PriorityQueueType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.FibonacciPriorityQueue`1"/> class that is empty
+            </summary>
+            <param name="type">The type of this priority queue used for comparing nodes</param>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.#ctor(System.Comparison{PriorityQueues.FibonacciPriorityQueue{`0}.QueueElement})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.FibonacciPriorityQueue`1"/> class that is empty
+            </summary>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Comparison{PriorityQueues.FibonacciPriorityQueue{`0}.QueueElement})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.FibonacciPriorityQueue`1"/> class that contains elements copied from the specified collection
+            </summary>
+            <param name="collection">The collection whose elements are copied to the <see cref="T:PriorityQueues.FibonacciPriorityQueue`1"/></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="P:PriorityQueues.FibonacciPriorityQueue`1.Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:PriorityQueues.FibonacciPriorityQueue`1.Type">
+            <summary>
+            Gets the type of this priority queue
+            </summary>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.DecreaseKey(PriorityQueues.FibonacciPriorityQueue{`0}.Node,System.Double)">
+            <summary>
+            Sets a new priority for the specified node. The new value has to be lower if the <see cref="P:PriorityQueues.FibonacciPriorityQueue`1.Type"/> is <see cref="F:PriorityQueues.PriorityQueueType.Maximum"/> or higher if the <see cref="P:PriorityQueues.FibonacciPriorityQueue`1.Type"/> is <see cref="F:PriorityQueues.PriorityQueueType.Minimum"/>
+            </summary>
+            <param name="node"><see cref="T:PriorityQueues.FibonacciPriorityQueue`1.Node"/> to be modified</param>
+            <param name="newPriority">A finite value representing the new priority</param>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Dequeue">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Enqueue(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Enqueue(`0,System.Double)">
+            <summary>
+            Inserts an element to the queue with a specified priority value
+            </summary>
+            /// <exception cref="T:System.ArgumentNullException"></exception>
+            <param name="element">The element to be added to the queue</param>
+            <param name="priority">The priority value</param>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.IsEmpty">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Peek">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.Remove(PriorityQueues.FibonacciPriorityQueue{`0}.Node)">
+            <summary>
+            Removes a node from the queue
+            </summary>
+            <param name="node"><see cref="T:PriorityQueues.FibonacciPriorityQueue`1.Node"/> to be removed</param>
+        </member>
+        <member name="M:PriorityQueues.FibonacciPriorityQueue`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:PriorityQueues.IPriorityQueue`1">
+            <summary>
+            Represents a generic priority queue
+            </summary>
+        </member>
+        <member name="P:PriorityQueues.IPriorityQueue`1.Count">
+            <summary>
+            Gets the number of elements contained in the queue
+            </summary>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Clear">
+            <summary>
+            Clear all elements from the queue
+            </summary>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Contains(`0)">
+            <summary>
+            Determines whether the queue contains the specified element
+            </summary>
+            <param name="element"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <returns><see langword="true"/> if the queue contains the specified element, <see langword="false"/> otherwise</returns>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Dequeue">
+            <summary>
+            Returns the element with the highest priority value and removes it from the queue
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <returns>The element with the highest priority</returns>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Enqueue(`0)">
+            <summary>
+            Inserts an element to the queue
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <param name="element">The element to be added to the queue</param>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.IsEmpty">
+            <summary>
+            Determines if the queue contains no elements
+            </summary>
+            <returns><see langword="true"/> if the queue contains no elements, <see langword="false"/> otherwise</returns>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Peek">
+            <summary>
+            Returns the element with the highest priority value without removing it from the queue
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <returns>The element with the highest priority</returns>
+        </member>
+        <member name="M:PriorityQueues.IPriorityQueue`1.Remove(`0)">
+            <summary>
+            Removes an element from the queue
+            </summary>
+            <param name="element">Element to remove from queue; can be null</param>
+            <returns><see langword="true"/> if the element is successfuly removed; otherwise, <see langword="false"/>. This method also returns false if the element is not found in the queue</returns>
+        </member>
+        <member name="T:PriorityQueues.MappedBinaryPriorityQueue`1">
+            <summary>
+            Binary heap implementation that uses a Dictionary underneath for storing the values for faster lookup and item removal
+            </summary>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.#ctor(System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of <see cref="T:PriorityQueues.MappedBinaryPriorityQueue`1"/> class that is empty and has the default initial capacity
+            </summary>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.#ctor(System.Int32,System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.MappedBinaryPriorityQueue`1"/> class that is empty and has the specified initial capacity
+            </summary>
+            <param name="capacity">The number of elements the <see cref="T:PriorityQueues.MappedBinaryPriorityQueue`1"/> can initially store</param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Comparison{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PriorityQueues.MappedBinaryPriorityQueue`1"/> class that contains elements copied from the specified collection, sorted by their priority value
+            </summary>
+            <param name="collection">The collection whose elements are copied to the <see cref="T:PriorityQueues.MappedBinaryPriorityQueue`1"/></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.Enqueue(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PriorityQueues.MappedBinaryPriorityQueue`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

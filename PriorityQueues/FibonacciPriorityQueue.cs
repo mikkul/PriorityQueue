@@ -41,7 +41,7 @@ namespace PriorityQueues
 			}
 
 			/// <summary>
-			/// The actual <see cref="T"/>
+			/// The actual value of the user-specified type
 			/// </summary>
 			public T Value { get; set; }
 
@@ -52,7 +52,7 @@ namespace PriorityQueues
 		}
 
 		/// <summary>
-		/// 
+		/// Represents a single node in the fibonacci heap
 		/// </summary>
 		public sealed class Node
 		{
@@ -82,8 +82,10 @@ namespace PriorityQueues
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FibonacciPriorityQueue{T}"/> class that is empty
 		/// </summary>
+		/// <param name="type">The type of this priority queue used for comparing nodes</param>
 		public FibonacciPriorityQueue(PriorityQueueType type)
 		{
+			Type = type;
 			if(type == PriorityQueueType.Maximum)
 			{
 				_isMaxHeap = true;
@@ -119,10 +121,8 @@ namespace PriorityQueues
 		/// </summary>
 		/// <param name="collection">The collection whose elements are copied to the <see cref="FibonacciPriorityQueue{T}"/></param>
 		/// <param name="comparer"></param>
-		public FibonacciPriorityQueue(IEnumerable<T> collection, Comparison<QueueElement> comparer)
+		public FibonacciPriorityQueue(IEnumerable<T> collection, Comparison<QueueElement> comparer) : this(comparer)
 		{
-			_comparer = comparer;
-			_hasCustomComparer = true;
 			foreach (var element in collection)
 			{
 				Enqueue(element);
@@ -133,6 +133,11 @@ namespace PriorityQueues
 		#region Public properties
 		/// <inheritdoc/>
 		public int Count => _count;
+
+		/// <summary>
+		/// Gets the type of this priority queue
+		/// </summary>
+		public PriorityQueueType Type { get; }
 		#endregion
 
 		#region Public methods
@@ -155,10 +160,10 @@ namespace PriorityQueues
 		}
 
 		/// <summary>
-		/// 
+		/// Sets a new priority for the specified node. The new value has to be lower if the <see cref="Type"/> is <see cref="PriorityQueueType.Maximum"/> or higher if the <see cref="Type"/> is <see cref="PriorityQueueType.Minimum"/>
 		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="newPriority"></param>
+		/// <param name="node"><see cref="Node"/> to be modified</param>
+		/// <param name="newPriority">A finite value representing the new priority</param>
 		public void DecreaseKey(Node node, double newPriority)
 		{
 			if(double.IsNaN(newPriority))
@@ -281,7 +286,7 @@ namespace PriorityQueues
 		/// /// <exception cref="ArgumentNullException"></exception>
 		/// <param name="element">The element to be added to the queue</param>
 		/// <param name="priority">The priority value</param>
-		public void Enqueue(T element, double priority)
+		public Node Enqueue(T element, double priority)
 		{
 			if(element == null)
 			{
@@ -293,6 +298,8 @@ namespace PriorityQueues
 			_minNode = MergeLists(_minNode, newNode);
 
 			_count++;
+
+			return newNode;
 		}
 
 		/// <inheritdoc/>
@@ -321,9 +328,9 @@ namespace PriorityQueues
 		}
 
 		/// <summary>
-		/// 
+		/// Removes a node from the queue
 		/// </summary>
-		/// <param name="node">Node to be removed</param>
+		/// <param name="node"><see cref="Node"/> to be removed</param>
 		public void Remove(Node node)
 		{
 			if(_hasCustomComparer)

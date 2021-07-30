@@ -52,14 +52,13 @@ namespace PriorityQueues
 			_heap = new List<T>(collection.Count());
 			_comparer = comparer;
 
-			int i = 0;
 			foreach (var elem in collection)
 			{
 				_heap.Add(elem);
 			}
 
 			// heapify process
-			for (int j = Math.Max(0, (_heap.Count / 2) - 1); j >= 0; j--)
+			for (int i = Math.Max(0, (_heap.Count / 2) - 1); i >= 0; i--)
 			{
 				Sink(i);
 			}
@@ -243,6 +242,7 @@ namespace PriorityQueues
 		#endregion
 
 		#region IEnumerable interface implementation
+		/// <inheritdoc/>
 		public IEnumerator<T> GetEnumerator()
 		{
 			return ((IEnumerable<T>)_heap).GetEnumerator();

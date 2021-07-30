@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace PriorityQueues.Tests
 {
@@ -76,9 +77,31 @@ namespace PriorityQueues.Tests
 			Assert.AreEqual(priorityQueue.Dequeue(), banana);
 		}
 
+		[TestMethod()]
+		public void Collection_constructor_test()
+		{
+			var apple = new SampleElement("apple", 3f);
+			var pear = new SampleElement("pear", 1f);
+			var banana = new SampleElement("banana", 5f);
+			IList<SampleElement> elementsList = new List<SampleElement>();
+			elementsList.Add(apple);
+			elementsList.Add(pear);
+			elementsList.Add(banana);
+
+			IPriorityQueue<SampleElement> priorityQueue = new BinaryPriorityQueue<SampleElement>(elementsList, (a, b) => a.Price.CompareTo(b.Price));
+
+			Assert.IsTrue(priorityQueue.Contains(apple));
+			Assert.IsTrue(priorityQueue.Contains(pear));
+			Assert.IsTrue(priorityQueue.Contains(banana));
+
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
+		}
+
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
 		{
-			return new BinaryPriorityQueue<SampleElement>((a, b) => a.Priority.CompareTo(b.Priority));
+			return new BinaryPriorityQueue<SampleElement>((a, b) => a.Price.CompareTo(b.Price));
 		}
 	}
 
@@ -156,9 +179,31 @@ namespace PriorityQueues.Tests
 			Assert.AreEqual(priorityQueue.Dequeue(), apple);
 		}
 
+		[TestMethod()]
+		public void Collection_constructor_test()
+		{
+			var apple = new SampleElement("apple", 3f);
+			var pear = new SampleElement("pear", 1f);
+			var banana = new SampleElement("banana", 5f);
+			IList<SampleElement> elementsList = new List<SampleElement>();
+			elementsList.Add(apple);
+			elementsList.Add(pear);
+			elementsList.Add(banana);
+
+			IPriorityQueue<SampleElement> priorityQueue = new BinaryPriorityQueue<SampleElement>(elementsList, (a, b) => b.Price.CompareTo(a.Price));
+
+			Assert.IsTrue(priorityQueue.Contains(apple));
+			Assert.IsTrue(priorityQueue.Contains(pear));
+			Assert.IsTrue(priorityQueue.Contains(banana));
+
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+		}
+
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
 		{
-			return new BinaryPriorityQueue<SampleElement>((a, b) => b.Priority.CompareTo(a.Priority));
+			return new BinaryPriorityQueue<SampleElement>((a, b) => b.Price.CompareTo(a.Price));
 		}
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace PriorityQueues.Tests
 {
@@ -50,19 +52,19 @@ namespace PriorityQueues.Tests
 			var cherry = new SampleElement("cherry", 30f);
 			var date = new SampleElement("date", 20f);
 			var elderberry = new SampleElement("elderberry", 10f);
-			FibonacciPriorityQueue<SampleElement> priorityQueue = new FibonacciPriorityQueue<SampleElement>(PriorityQueueType.Minimum);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
 
-			priorityQueue.Enqueue(date, date.Priority);
-			priorityQueue.Enqueue(elderberry, elderberry.Priority);
+			priorityQueue.Enqueue(date, date.Price);
+			priorityQueue.Enqueue(elderberry, elderberry.Price);
 
 			Assert.AreEqual(priorityQueue.Count, 2);
 			Assert.AreEqual(priorityQueue.Peek(), elderberry);
 			Assert.IsTrue(priorityQueue.Contains(elderberry));
 			Assert.AreEqual(priorityQueue.Dequeue(), elderberry);
 
-			priorityQueue.Enqueue(apple, apple.Priority);
-			priorityQueue.Enqueue(banana, banana.Priority);
-			priorityQueue.Enqueue(cherry, cherry.Priority);
+			priorityQueue.Enqueue(apple, apple.Price);
+			priorityQueue.Enqueue(banana, banana.Price);
+			priorityQueue.Enqueue(cherry, cherry.Price);
 
 			Assert.AreEqual(priorityQueue.Count, 4);
 
@@ -113,9 +115,58 @@ namespace PriorityQueues.Tests
 			Assert.AreEqual(priorityQueue.Dequeue(), banana);
 		}
 
+		[ExpectedException(typeof(ArgumentException))]
+		[TestMethod()]
+		public void Decrease_key_throws_exception_if_priority_is_NaN()
+		{
+			var apple = new SampleElement("apple", 3f);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
+			var appleNode = priorityQueue.Enqueue(apple, apple.Price);
+
+			priorityQueue.DecreaseKey(appleNode, double.NaN);
+		}
+
+		[ExpectedException(typeof(ArgumentException))]
+		[TestMethod()]
+		public void Decrease_key_throws_exception_if_new_priority_exceeds_old()
+		{
+			var apple = new SampleElement("apple", 3f);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
+			var appleNode = priorityQueue.Enqueue(apple, apple.Price);
+
+			priorityQueue.DecreaseKey(appleNode, 20);
+		}
+
+		[TestMethod()]
+		public void Collection_constructor_test()
+		{
+			var apple = new SampleElement("apple", 3f);
+			var pear = new SampleElement("pear", 1f);
+			var banana = new SampleElement("banana", 5f);
+			IList<SampleElement> elementsList = new List<SampleElement>();
+			elementsList.Add(apple);
+			elementsList.Add(pear);
+			elementsList.Add(banana);
+
+			IPriorityQueue<SampleElement> priorityQueue = new FibonacciPriorityQueue<SampleElement>(elementsList, (a, b) => a.Value.Price.CompareTo(b.Value.Price));
+
+			Assert.IsTrue(priorityQueue.Contains(apple));
+			Assert.IsTrue(priorityQueue.Contains(pear));
+			Assert.IsTrue(priorityQueue.Contains(banana));
+
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
+		}
+
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
 		{
-			return new FibonacciPriorityQueue<SampleElement>((a, b) => a.Value.Priority.CompareTo(b.Value.Priority));
+			return new FibonacciPriorityQueue<SampleElement>((a, b) => a.Value.Price.CompareTo(b.Value.Price));
+		}
+
+		private FibonacciPriorityQueue<SampleElement> CreateFibonacciPriorityQueue()
+		{
+			return new FibonacciPriorityQueue<SampleElement>(PriorityQueueType.Minimum);
 		}
 	}
 
@@ -167,19 +218,19 @@ namespace PriorityQueues.Tests
 			var cherry = new SampleElement("cherry", 30f);
 			var date = new SampleElement("date", 40f);
 			var elderberry = new SampleElement("elderberry", 50f);
-			FibonacciPriorityQueue<SampleElement> priorityQueue = new FibonacciPriorityQueue<SampleElement>(PriorityQueueType.Maximum);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
 
-			priorityQueue.Enqueue(date, date.Priority);
-			priorityQueue.Enqueue(elderberry, elderberry.Priority);
+			priorityQueue.Enqueue(date, date.Price);
+			priorityQueue.Enqueue(elderberry, elderberry.Price);
 
 			Assert.AreEqual(priorityQueue.Count, 2);
 			Assert.AreEqual(priorityQueue.Peek(), elderberry);
 			Assert.IsTrue(priorityQueue.Contains(elderberry));
 			Assert.AreEqual(priorityQueue.Dequeue(), elderberry);
 
-			priorityQueue.Enqueue(apple, apple.Priority);
-			priorityQueue.Enqueue(banana, banana.Priority);
-			priorityQueue.Enqueue(cherry, cherry.Priority);
+			priorityQueue.Enqueue(apple, apple.Price);
+			priorityQueue.Enqueue(banana, banana.Price);
+			priorityQueue.Enqueue(cherry, cherry.Price);
 
 			Assert.AreEqual(priorityQueue.Count, 4);
 
@@ -230,9 +281,58 @@ namespace PriorityQueues.Tests
 			Assert.AreEqual(priorityQueue.Dequeue(), apple);
 		}
 
+		[ExpectedException(typeof(ArgumentException))]
+		[TestMethod()]
+		public void Decrease_key_throws_exception_if_priority_is_NaN()
+		{
+			var apple = new SampleElement("apple", 3f);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
+			var appleNode = priorityQueue.Enqueue(apple, apple.Price);
+
+			priorityQueue.DecreaseKey(appleNode, double.NaN);
+		}
+
+		[ExpectedException(typeof(ArgumentException))]
+		[TestMethod()]
+		public void Decrease_key_throws_exception_if_new_priority_exceeds_old()
+		{
+			var apple = new SampleElement("apple", 3f);
+			FibonacciPriorityQueue<SampleElement> priorityQueue = CreateFibonacciPriorityQueue();
+			var appleNode = priorityQueue.Enqueue(apple, apple.Price);
+
+			priorityQueue.DecreaseKey(appleNode, -20);
+		}
+
+		[TestMethod()]
+		public void Collection_constructor_test()
+		{
+			var apple = new SampleElement("apple", 3f);
+			var pear = new SampleElement("pear", 1f);
+			var banana = new SampleElement("banana", 5f);
+			IList<SampleElement> elementsList = new List<SampleElement>();
+			elementsList.Add(apple);
+			elementsList.Add(pear);
+			elementsList.Add(banana);
+
+			IPriorityQueue<SampleElement> priorityQueue = new FibonacciPriorityQueue<SampleElement>(elementsList, (a, b) => b.Value.Price.CompareTo(a.Value.Price));
+
+			Assert.IsTrue(priorityQueue.Contains(apple));
+			Assert.IsTrue(priorityQueue.Contains(pear));
+			Assert.IsTrue(priorityQueue.Contains(banana));
+
+			Assert.AreEqual(priorityQueue.Dequeue(), banana);
+			Assert.AreEqual(priorityQueue.Dequeue(), apple);
+			Assert.AreEqual(priorityQueue.Dequeue(), pear);
+		}
+
 		protected override IPriorityQueue<SampleElement> CreatePriorityQueue()
 		{
-			return new FibonacciPriorityQueue<SampleElement>((a, b) => b.Value.Priority.CompareTo(a.Value.Priority));
+			return new FibonacciPriorityQueue<SampleElement>((a, b) => b.Value.Price.CompareTo(a.Value.Price));
+		}
+
+		private FibonacciPriorityQueue<SampleElement> CreateFibonacciPriorityQueue()
+		{
+			return new FibonacciPriorityQueue<SampleElement>(PriorityQueueType.Maximum);
 		}
 	}
 }

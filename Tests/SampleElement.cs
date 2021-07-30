@@ -2,13 +2,13 @@
 {
 	public class SampleElement
 	{
-		public SampleElement(string name, float priority)
+		public SampleElement(string name, float price)
 		{
 			Name = name;
-			Priority = priority;
+			Price = price;
 		}
 
 		public string Name { get; set; }
-		public float Priority { get; set; }
+		public float Price { get; set; }
 	}
 }

@@ -52,7 +52,7 @@ namespace PriorityQueues
 			// heapify process
 			for (int j = Math.Max(0, (_heap.Count / 2) - 1); j >= 0; j--)
 			{
-				Sink(i);
+				Sink(j);
 			}
 		}
 		#endregion
